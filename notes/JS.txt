@@ -1,0 +1,38 @@
+callback hell:
+nested callback
+whenever ur giving a callback always use an arraow function never use paranthesis 
+eg: getData(1,()=>{
+    getData(2);
+});
+
+and not getData(1,getData(2));
+
+Promises:
+it is for eventual completion of task. either can  be resolved or rejected.they are the solution to callback hell
+
+let prom=new Promise((resolve,reject=>{}):resolve and reject are the 2 handelers of promises. resolve is getting a success on the work that has to be performed but reject also completes the process but there will be an error that will be thrown.
+
+since promise is an object it always has a prototype. It has state and result.
+there atre 3 state: pending, fullfilled(resolved), reject. there is inbuilt function as resolve and reject in js which can be called which return success as reult or an error as the result respectively. when we request the api, it returns the promise and using it we deal with the data. We do not create promise in real life programming it will be given by the api we only work with them. 
+
+How to use the promise:
+if the promise is fullfilled: use promise.then((res)=>{})(res is the value to be printed even err)
+if the promise is rejected: use promise.catch((err)=>{})
+
+Promise chain:the chain of all the promises that has to be worked with sequentially. use then in a nested format to obtain this.
+
+
+Async await:
+
+Async function alwyas returns a promise.
+Await pauses the execution of its surrounding async function till its promise is setteled. can be sued only inside an async function.
+
+async function getwhData(){
+    await api();//1st call
+    await api();//2nd call
+}
+//the 1st call will be sent after it exceution only the 2nd call will be sent
+
+note: wherever we use async await , we do not use .then and .catch and vice versa.
+
+since in async await, we have to call the function in order to save time we use iife(immideately inviked function expression). executed as soon as it is defined.

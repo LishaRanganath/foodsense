@@ -1,0 +1,64 @@
+ create table dept(id varchar(3) primary key, name varchar(20));
+insert into dept values('IS','information science');
+ insert into dept values('CS','computer science');
+ insert into dept values('DS','data science');
+insert into dept values('AI','artificial intelligence');
+ insert into dept values('ME','mechanical');
+ insert into dept values('EE','ectrical');
+ insert into dept values('EC','electronics');
+
+
+ create table courses(id varchar(15) primary key,name varchar(20),dep_id varchar(3),clg_id varchar(3), foreign key(dep_id) references dept(id), foreign key(clg_id) references college(id));
+
+ insert into courses values('1NH20ISE71A','software testing','IS','NH');
+ insert into courses values('1DS20ISE71A','software testing','IS','DS');
+insert into courses values('1NH20ISE72A','computer networks','IS','NH');
+ insert into courses values('1NH20ISE73A','cryptography','IS','NH');
+insert into courses values('1NH20ISE571A','devops','IS','NH');
+ insert into courses values('1NH20ISE572A','digital marketing','IS','NH');
+ insert into courses values('1DS20ISE73A','cryptography','IS','DS');
+ insert into courses values('1DS20ISE72A','computer networks','IS','DS');
+
+
+ create table type_of_users(id varchar(3) primary key, name varchar(30);
+ insert into type_of_users values('T','Teacher');
+ insert into type_of_users values('P','Principal');
+ insert into type_of_users values('HOD','Head of Department');
+ insert into type_of_users values('S','Student');
+ insert into type_of_users values('NT','non-teaching');
+
+
+create table users(id varchar(20),name varchar(50), phno bigint(11), email varchar(100) unique not null, type varchar(3), branch varchar(3),foreign key(type) references type_of_users(id), foreign key(branch) references dept(id));
+
+ insert into users values('1NH20IS077','Lisha',9837645378,'lishar2002@gmail.com','S','IS');
+ insert into users values('1NH20IS088','Blake',9825637546,'blakely@gmail.com','S','IS');
+ insert into users values('1NH20CS088','Arie',9837256736,'arie@gmail.com','S','CS');
+ insert into users values('T-NH-MA-518','Mary',2039627518,'mary@gmail.com','T','CS');
+ insert into users values('1DS20CS088','Nate',4875970297,'nate@gmail.com','S','CS');
+
+
+create table student_courses(stud_id varchar(20),course_id varchar(15),foreign key(stud_id) references users(id),foreign key(course_id) references courses(id));
+insert into student_courses values('1NH20IS077','1NH20ISE71A');
+ insert into student_courses values('1NH20IS088','1NH20ISE71A');
+ insert into student_courses values('1NH20IS088','1NH20ISE73A');
+ insert into student_courses values('1NH20IS088','1NH20ISE571A');
+ insert into student_courses values('1NH20IS088','1NH20ISE72A');
+
+
+create table teach_courses(teach_id varchar(20), course_id varchar(15), foreign key(teach_id) references users(id), foreign key(course_id) references courses(id));
+ insert into teach_courses values('T-NH-MA-518','1NH20ISE71A');
+ insert into teach_courses values('T-NH-MA-518','1NH20ISE73A');
+
+ create table marks(stud_id varchar(20),course_id varchar(15),marks integer, foreign key(stud_id) references users(id), foreign key(course_id) references courses(id));
+
+ insert into marks values('1NH20IS088','1NH20ISE71A',70);
+ insert into marks values('1NH20IS088','1NH20ISE72A',80);
+insert into marks values('1NH20IS088','1NH20ISE73A',80);
+insert into marks values('1NH20IS088','1NH20ISE571A',85);
+
+
+ create table marksheet(stud_id varchar(20), dept_id varchar(3), name varchar(50), total integer, foreign key(stud_id) references users(id));
+
+ alter table marksheet add column average float;
+
+ insert into marksheet(stud_id,dept_id,name,total,average) select m.stud_id,u.branch,u.name, SUM(m.marks) as total,AVG(m.marks) as average from marks m join users u on m.stud_id=u.id group by m.stud_id,u.branch;

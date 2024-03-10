@@ -1,0 +1,36 @@
+RUBY:
+
+Block:
+blocks are anonymous functions taht can be passed into a method
+its the one that starts and ends with a curly braces.or shud be inside a do-end statement
+def each (array,&blk) in this statement, the ampersand is gonna convert the block into a proc.(proc is noting but something that has the method that which we can call)
+
+yeild: it is much faster. it is used to call the statements present in the block
+
+proc is used to store off the block and which can be later used. here when the proc is passed it civerts to a block and gives it to the function later the ampersand in th eblock again converts it to a proc and gives the values.
+
+For lambda, we use the arraw keyword.or can use the lambda keyword.
+
+difference between lambda and proc is : lambda is stricter about the number of arguements that are being passed. 
+
+in proc, the return entirely returns or exits out after it encounters the return
+
+in arguement destructurization, instead of getting th evalues in the array or the hash  maps by using their indexes, we can easily assign them to a set of variables and access them.
+
+if you want to create a hash with the hash value and the key that is not peresent in the hash befor then: counter=Hash.new {|h,k| h[k]=0}
+this means that if there is no key that is similar to the one being used then it creates the new key and assigns it to zero and adds it to the hash
+
+
+MODULES:
+it provides namespaces and mixins.
+in namespaces, the name of the function is different when compared to th ename of the module.
+ in mixins, it is a way to share the class between each other without actually using inheritance. once ypu include module in class, all its methods become available.
+
+
+Inheritance in ruby:
+in ruby, multiple inheritance is not supported hence we make use of mixins.
+Modules can also include other modules allowing hierarchial organisation of functionality
+
+Struct in ruby:
+used to create new class which produces value object. we can pass the symbols which will become the instance variables for this class. we can access the struct member using methods unlike hashes and arrays.
+it will put nil if no arguement is passed rather than throwing an error
